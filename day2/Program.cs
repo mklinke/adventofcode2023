@@ -2,15 +2,13 @@
 
 var allLines = File.ReadAllLines("input.txt");
 
-var target = new Dictionary<string, int> { { "red", 12 }, { "green", 13 }, { "blue", 14 } };
-
 var sum = 0;
 foreach (var line in allLines)
 {
     var parts = line.Split(":");
     var gameId = int.Parse(parts[0].Substring(5));
     var sets = parts[1].Split(";");
-    var possible = true;
+    var minimumCubes = new Dictionary<string, int>();
     foreach (var set in sets)
     {
         var cubes = set.Split(",");
@@ -19,21 +17,13 @@ foreach (var line in allLines)
             var cubeParts = cube.Trim().Split(" ");
             var number = int.Parse(cubeParts[0]);
             var color = cubeParts[1];
-            if (!target.ContainsKey(color) || number > target[color])
+            if (!minimumCubes.ContainsKey(color) || number > minimumCubes[color])
             {
-                possible = false;
-                break;
+                minimumCubes[color] = number;
             }
         }
-        if (!possible)
-        {
-            break;
-        }
     }
-    if (possible)
-    {
-        sum += gameId;
-    }
+    sum += minimumCubes.Values.Aggregate((a, b) => a * b);
 }
 
 Console.WriteLine("Sum: " + sum);
