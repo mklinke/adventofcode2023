@@ -11,9 +11,10 @@ foreach (var line in allLines)
     var winningNumbers = numberGroups[0].Trim().Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(text => int.Parse(text)).ToList();
     var ownNumbers = numberGroups[1].Trim().Split(" ", StringSplitOptions.RemoveEmptyEntries).Select(text => int.Parse(text)).ToList();
     var cardInstances = 1;
-    if (cardCopies.TryGetValue(currentCard, out var copies)){
+    if (cardCopies.TryGetValue(currentCard, out var copies))
+    {
         cardInstances += copies;
-    }     
+    }
     var hits = 0;
     foreach (var winningNumber in winningNumbers)
     {
@@ -26,7 +27,7 @@ foreach (var line in allLines)
             }
             else
             {
-                cardCopies[currentCard + hits]+=cardInstances;
+                cardCopies[currentCard + hits] += cardInstances;
             }
         }
     }
